@@ -2,8 +2,6 @@ package com.example.userservice.controller;
 
 import com.example.userservice.dto.CreateMemberDTO;
 import com.example.userservice.dto.ResponseDTO;
-import com.example.userservice.dto.ResponseMemberDTO;
-import com.example.userservice.entity.Member;
 import com.example.userservice.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +24,7 @@ public class MemberController {
     private final Environment environment;
     private final MemberService memberService;
 
-    private HashMap<String, Object> returnMap = null;
+    private final HashMap<String, Object> returnMap = null;
 
     @GetMapping("/health_check")
     public String status() {
@@ -34,12 +32,12 @@ public class MemberController {
     }
 
     @GetMapping("/welcome")
-    public String welcome(){
+    public String welcome() {
         return environment.getProperty("greeting.message");
     }
 
     @PostMapping("/members")
-    public ResponseEntity<Map<String,Object>> createMember(@RequestBody @Valid CreateMemberDTO createMemberDTO){
+    public ResponseEntity<Map<String, Object>> createMember(@RequestBody @Valid CreateMemberDTO createMemberDTO) {
         var responseMember = memberService.createMember(createMemberDTO);
 
         var responseDto = new ResponseDTO("회원가입 성공", responseMember).getResponseEntity();
