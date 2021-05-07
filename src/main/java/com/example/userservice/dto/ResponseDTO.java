@@ -12,7 +12,7 @@ public class ResponseDTO {
     private String message;
     private Object responseData;
 
-    public Map<String, Object> getResponseEntity(){
+    public Map<String, Object> getResponseEntity() {
         HashMap<String, Object> responseMap = new HashMap<>();
         HashMap<String, Object> payload = new HashMap<>();
 
