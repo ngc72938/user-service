@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -23,8 +22,6 @@ public class MemberController {
     private final ModelMapper modelMapper;
     private final Environment environment;
     private final MemberService memberService;
-
-    private final HashMap<String, Object> returnMap = null;
 
     @GetMapping("/health_check")
     public String status() {
