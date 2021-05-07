@@ -24,8 +24,6 @@ public class MemberController {
     private final Environment environment;
     private final MemberService memberService;
 
-    private final HashMap<String, Object> returnMap = null;
-
     @GetMapping("/health_check")
     public String status() {
         return "It's Working in User Service";
