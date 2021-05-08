@@ -44,9 +44,9 @@ public class MemberController {
 
     @GetMapping("/members")
     public ResponseEntity<Map<String, Object>> fetchMemberList(){
-        List<ResponseMemberDTO> responseMemberDTOList = memberService.findAll();
+        var responseMemberList = memberService.findAll();
 
-        var responseDto = new ResponseDTO("회원 리스트 조회 성공", responseMemberDTOList).getResponseEntity();
+        var responseDto = new ResponseDTO("회원 리스트 조회 성공", responseMemberList).getResponseEntity();
 
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
