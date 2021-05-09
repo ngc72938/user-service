@@ -2,7 +2,6 @@ package com.example.userservice.controller;
 
 import com.example.userservice.dto.CreateMemberDTO;
 import com.example.userservice.dto.ResponseDTO;
-import com.example.userservice.dto.ResponseMemberDTO;
 import com.example.userservice.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Map;
 
 @RestController

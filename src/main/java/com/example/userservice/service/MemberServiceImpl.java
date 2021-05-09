@@ -24,7 +24,7 @@ public class MemberServiceImpl implements MemberService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public ResponseMemberDTO createMember(CreateMemberDTO createMemberDTO) {
+    public ResponseMemberDTO createMember(CreateMemberDTO createMemberDTO){
         var member = modelMapper.map(createMemberDTO, Member.class);
 
         member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
