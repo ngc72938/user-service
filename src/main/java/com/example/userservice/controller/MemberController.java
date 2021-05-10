@@ -1,7 +1,7 @@
 package com.example.userservice.controller;
 
-import com.example.userservice.dto.CreateMemberDTO;
-import com.example.userservice.dto.ResponseDTO;
+import com.example.userservice.dto.CreateMemberDto;
+import com.example.userservice.dto.ResponseDto;
 import com.example.userservice.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 @Slf4j
 @AllArgsConstructor
-@RequestMapping("/member-service")
+@RequestMapping("/")
 public class MemberController {
     private final Environment environment;
     private final MemberService memberService;
@@ -32,10 +32,10 @@ public class MemberController {
     }
 
     @PostMapping("/members")
-    public ResponseEntity<Map<String, Object>> createMember(@RequestBody @Valid CreateMemberDTO createMemberDTO) {
+    public ResponseEntity<Map<String, Object>> createMember(@RequestBody @Valid CreateMemberDto createMemberDTO) {
         var responseMember = memberService.createMember(createMemberDTO);
 
-        var responseDto = new ResponseDTO("회원가입 성공", responseMember).getResponseEntity();
+        var responseDto = new ResponseDto("회원가입 성공", responseMember).getResponseEntity();
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
@@ -44,7 +44,7 @@ public class MemberController {
     public ResponseEntity<Map<String, Object>> fetchMemberList(){
         var responseMemberList = memberService.findAll();
 
-        var responseDto = new ResponseDTO("회원 리스트 조회 성공", responseMemberList).getResponseEntity();
+        var responseDto = new ResponseDto("회원 리스트 조회 성공", responseMemberList).getResponseEntity();
 
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
@@ -53,11 +53,8 @@ public class MemberController {
     public ResponseEntity<Map<String, Object>> getMemberInformation(@PathVariable("id") long memberId){
         var responseMember = memberService.findById(memberId);
 
-        var responseDto = new ResponseDTO("회원 조회 성공", responseMember).getResponseEntity();
+        var responseDto = new ResponseDto("회원 조회 성공", responseMember).getResponseEntity();
 
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
-
-
-
 }

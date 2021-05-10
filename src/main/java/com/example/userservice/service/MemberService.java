@@ -1,14 +1,17 @@
 package com.example.userservice.service;
 
-import com.example.userservice.dto.CreateMemberDTO;
-import com.example.userservice.dto.ResponseMemberDTO;
+import com.example.userservice.dto.CreateMemberDto;
+import com.example.userservice.dto.ResponseMemberDto;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface MemberService {
-    ResponseMemberDTO createMember(CreateMemberDTO createMemberDTO);
+public interface MemberService extends UserDetailsService {
+    ResponseMemberDto createMember(CreateMemberDto createMemberDTO);
 
-    ResponseMemberDTO findById(long memberId);
+    ResponseMemberDto findById(long memberId);
 
-    List<ResponseMemberDTO> findAll();
+    List<ResponseMemberDto> findAll();
+
+
 }
