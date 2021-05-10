@@ -8,12 +8,12 @@ import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseMemberDTO {
+public class ResponseMemberDto {
     private long id;
     private String email;
     private String name;
     private String userId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private List<ResponseOrder> orders;
+    private List<ResponseOrderDto> orders;
 }

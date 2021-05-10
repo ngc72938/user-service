@@ -8,7 +8,7 @@ import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseDTO {
+public class ResponseDto {
     private String message;
     private Object responseData;
 
