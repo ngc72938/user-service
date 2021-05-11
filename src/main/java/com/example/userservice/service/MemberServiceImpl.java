@@ -5,6 +5,7 @@ import com.example.userservice.dto.RequestLoginDto;
 import com.example.userservice.dto.ResponseMemberDto;
 import com.example.userservice.dto.ResponseOrderDto;
 import com.example.userservice.entity.Member;
+import com.example.userservice.entity.Role;
 import com.example.userservice.exception.BusinessException;
 import com.example.userservice.repository.MemberRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -31,7 +33,12 @@ public class MemberServiceImpl implements MemberService {
     public ResponseMemberDto createMember(CreateMemberDto createMemberDTO){
         var member = modelMapper.map(createMemberDTO, Member.class);
 
+        var savedMember = memberRepository.findByEmail(createMemberDTO.getEmail()).orElseGet(Member::new);
+        if(savedMember.getId() != 0)
+            throw new BusinessException("이미 사용중인 이메일 입니다.");
+
         member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
+        member.setRoles(Collections.singletonList(Role.CLIENT));
 
         var createdMember = memberRepository.save(member);
 
