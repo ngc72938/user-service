@@ -14,6 +14,6 @@ import java.io.IOException;
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException ex) throws IOException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "인증 만료. 다시 로그인해주세요.");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "로그인 정보가 잘못 되었습니다. 다시 로그인해주세요.");
     }
 }

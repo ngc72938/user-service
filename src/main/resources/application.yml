@@ -1,4 +1,7 @@
 server:
+  error:
+    include-exception: false
+    include-stacktrace: never
   port: 0
 
 spring:
