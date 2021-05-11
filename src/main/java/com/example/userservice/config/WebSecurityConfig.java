@@ -32,13 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers(
-                    "/v1/members",
-                    "/v1/login",
-                    "/actuator/**"
+                    "/v1/**"
             ).permitAll()
-            .antMatchers("/v1/admin/**").hasRole("ADMIN")
-            .anyRequest().hasRole("CLIENT")
-            .and()
+                     .and()
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
