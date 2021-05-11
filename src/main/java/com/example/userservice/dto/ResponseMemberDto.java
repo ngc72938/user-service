@@ -1,5 +1,6 @@
 package com.example.userservice.dto;
 
+import com.example.userservice.entity.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
@@ -16,4 +17,5 @@ public class ResponseMemberDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<ResponseOrderDto> orders;
+    private List<Role> roles;
 }
