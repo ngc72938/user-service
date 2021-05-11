@@ -19,7 +19,7 @@ import java.util.Map;
 @RestController
 @Slf4j
 @AllArgsConstructor
-@RequestMapping("/v1/member-service")
+@RequestMapping("/v1")
 public class MemberController {
     private final Environment environment;
     private final MemberService memberService;

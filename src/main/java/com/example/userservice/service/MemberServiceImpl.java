@@ -28,23 +28,6 @@ public class MemberServiceImpl implements MemberService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var member = memberRepository.findByEmail(username).orElseGet(Member::new);
-        if(member.getId() == 0)
-            throw new UsernameNotFoundException(username);
-
-        return new User(
-               member.getEmail(),
-               member.getPassword(),
-               true,
-               true,
-               true,
-               true,
-               new ArrayList<>()
-        );
-    }
-
-    @Override
     public ResponseMemberDto createMember(CreateMemberDto createMemberDTO){
         var member = modelMapper.map(createMemberDTO, Member.class);
 
