@@ -1,9 +1,11 @@
 package com.example.userservice.service;
 
 import com.example.userservice.dto.CreateMemberDto;
+import com.example.userservice.dto.RequestLoginDto;
 import com.example.userservice.dto.ResponseMemberDto;
 import com.example.userservice.dto.ResponseOrderDto;
 import com.example.userservice.entity.Member;
+import com.example.userservice.exception.BusinessException;
 import com.example.userservice.repository.MemberRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -78,5 +80,16 @@ public class MemberServiceImpl implements MemberService {
         memberList.forEach(member -> responseMemberDtoList.add(modelMapper.map(member, ResponseMemberDto.class)));
 
         return responseMemberDtoList;
+    }
+
+    @Override
+    public ResponseMemberDto loginMember(RequestLoginDto requestLoginDto) {
+        var member = memberRepository.findByEmail(requestLoginDto.getEmail()).orElseGet(Member::new);
+        member.verifyExist();
+
+        if(!bCryptPasswordEncoder.matches(requestLoginDto.getPassword(), member.getPassword()))
+            throw new BusinessException("회원정보를 확인해 주세요");
+
+        return modelMapper.map(member, ResponseMemberDto.class);
     }
 }
