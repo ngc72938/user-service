@@ -32,14 +32,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers(
-                    "/v1/**"
+                    "/v1/**",
+                    "/actuator/**"
             ).permitAll()
-                     .and()
-                .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
-                .and()
-                .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-                .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class); // jwt token 필터를 id/password 인증 필터 전에 넣어라.
+            .and()
+            .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
+            .and()
+            .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+            .and()
+            .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class); // jwt token 필터를 id/password 인증 필터 전에 넣어라.
 
         http.headers().frameOptions().disable();
     }

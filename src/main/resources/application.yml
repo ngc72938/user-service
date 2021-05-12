@@ -16,8 +16,8 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
-  jwt:
-    secret: memberServiceSecretKey
+#  jwt:
+#    secret: memberServiceSecretKey
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem/testdb
@@ -46,5 +46,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
-        exclude: env,beans
+        include: info, refresh, health, beans
