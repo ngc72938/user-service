@@ -27,7 +27,11 @@ public class MemberController {
 
     @GetMapping("/health_check")
     public String status() {
-        return "It's Working in Member Service on Port "+ environment.getProperty("local.server.port");
+        return "It's Working in Member Service on Port "
+                + "port(local.server.port)=" +environment.getProperty("local.server.port")
+                + " port(server.port)=" +environment.getProperty("server.port")
+                + " token secret=" +environment.getProperty("spring.jwt.secret")
+                + " gateway ip=" +environment.getProperty("gateway.ip");
     }
 
     @GetMapping("/welcome")
