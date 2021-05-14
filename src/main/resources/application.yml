@@ -7,6 +7,11 @@ server:
 spring:
   application:
     name: member-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: rabbitmq
+    password: rabbitmq
   h2:
     console:
       enabled: true
@@ -46,4 +51,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: info, refresh, health, beans
+        include: info, refresh, health, beans, busrefresh
