@@ -32,8 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers(
-                    "/v1/**",
-                    "/actuator/**"
+                    "/**"
             ).permitAll()
             .and()
             .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())

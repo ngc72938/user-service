@@ -1,5 +1,6 @@
 package com.example.userservice.service;
 
+import com.example.userservice.client.OrderServiceClient;
 import com.example.userservice.dto.CreateMemberDto;
 import com.example.userservice.dto.RequestLoginDto;
 import com.example.userservice.dto.ResponseMemberDto;
@@ -11,8 +12,7 @@ import com.example.userservice.repository.MemberRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,11 +20,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
     private final JPAQueryFactory jpaQueryFactory;
+    private final OrderServiceClient orderServiceClient;
     private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -54,9 +56,11 @@ public class MemberServiceImpl implements MemberService {
 
         var responseMemberDTO = modelMapper.map(member, ResponseMemberDto.class);
 
-        List<ResponseOrderDto> orders = new ArrayList<>();
+        ResponseEntity<Map<String, Object>> orderMap = orderServiceClient.getOrders(member.getUserId());
+        Map<String,Object> result = (Map<String, Object>) orderMap.getBody().get("payload");
+        List<ResponseOrderDto> responseOrderList = (List<ResponseOrderDto>) result.get("data");
 
-        responseMemberDTO.setOrders(orders);
+        responseMemberDTO.setOrders(responseOrderList);
 
         return responseMemberDTO;
     }
