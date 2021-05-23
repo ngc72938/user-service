@@ -32,11 +32,11 @@ public class MemberServiceImpl implements MemberService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public ResponseMemberDto createMember(CreateMemberDto createMemberDTO){
+    public ResponseMemberDto createMember(CreateMemberDto createMemberDTO) {
         var member = modelMapper.map(createMemberDTO, Member.class);
 
         var savedMember = memberRepository.findByEmail(createMemberDTO.getEmail()).orElseGet(Member::new);
-        if(savedMember.getId() != 0)
+        if (savedMember.getId() != 0)
             throw new BusinessException("이미 사용중인 이메일 입니다.");
 
         member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
@@ -51,13 +51,13 @@ public class MemberServiceImpl implements MemberService {
     public ResponseMemberDto findById(long memberId) {
         var member = memberRepository.findById(memberId).orElseGet(Member::new);
 
-        if(member.getId() == 0)
+        if (member.getId() == 0)
             throw new UsernameNotFoundException("해당유저는 존재 하지 않습니다.");
 
         var responseMemberDTO = modelMapper.map(member, ResponseMemberDto.class);
 
         ResponseEntity<Map<String, Object>> orderMap = orderServiceClient.getOrders(member.getUserId());
-        Map<String,Object> result = (Map<String, Object>) orderMap.getBody().get("payload");
+        Map<String, Object> result = (Map<String, Object>) orderMap.getBody().get("payload");
         List<ResponseOrderDto> responseOrderList = (List<ResponseOrderDto>) result.get("data");
 
         responseMemberDTO.setOrders(responseOrderList);
@@ -81,7 +81,7 @@ public class MemberServiceImpl implements MemberService {
         var member = memberRepository.findByEmail(requestLoginDto.getEmail()).orElseGet(Member::new);
         member.verifyExist();
 
-        if(!bCryptPasswordEncoder.matches(requestLoginDto.getPassword(), member.getPassword()))
+        if (!bCryptPasswordEncoder.matches(requestLoginDto.getPassword(), member.getPassword()))
             throw new BusinessException("회원정보를 확인해 주세요");
 
         return modelMapper.map(member, ResponseMemberDto.class);

@@ -28,10 +28,10 @@ public class MemberController {
     @GetMapping("/health_check")
     public String status() {
         return "It's Working in Member Service on Port "
-                + "port(local.server.port)=" +environment.getProperty("local.server.port")
-                + " port(server.port)=" +environment.getProperty("server.port")
-                + " token secret=" +environment.getProperty("spring.jwt.secret")
-                + " gateway ip=" +environment.getProperty("gateway.ip");
+                + "port(local.server.port)=" + environment.getProperty("local.server.port")
+                + " port(server.port)=" + environment.getProperty("server.port")
+                + " token secret=" + environment.getProperty("spring.jwt.secret")
+                + " gateway ip=" + environment.getProperty("gateway.ip");
     }
 
     @GetMapping("/welcome")
@@ -49,7 +49,7 @@ public class MemberController {
     }
 
     @GetMapping("/members")
-    public ResponseEntity<Map<String, Object>> fetchMemberList(){
+    public ResponseEntity<Map<String, Object>> fetchMemberList() {
         var responseMemberList = memberService.findAll();
 
         var responseDto = new ResponseDto("회원 리스트 조회 성공", responseMemberList).getResponseEntity();
@@ -58,7 +58,7 @@ public class MemberController {
     }
 
     @GetMapping("/members/{id}")
-    public ResponseEntity<Map<String, Object>> getMemberInformation(@PathVariable("id") long memberId){
+    public ResponseEntity<Map<String, Object>> getMemberInformation(@PathVariable("id") long memberId) {
         var responseMember = memberService.findById(memberId);
 
         var responseDto = new ResponseDto("회원 조회 성공", responseMember).getResponseEntity();
@@ -67,7 +67,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> requestLogin(@RequestBody @Valid RequestLoginDto requestLoginDto, HttpServletResponse response){
+    public ResponseEntity<Map<String, Object>> requestLogin(@RequestBody @Valid RequestLoginDto requestLoginDto, HttpServletResponse response) {
         var responseMemberDto = memberService.loginMember(requestLoginDto);
 
         String token = jwtTokenProvider.createToken(responseMemberDto.getEmail(), responseMemberDto.getId(), responseMemberDto.getRoles());
