@@ -11,6 +11,6 @@ import java.util.Map;
 public interface OrderServiceClient {
 
     @GetMapping("/order-service/{userId}/orders")
-    ResponseEntity<Map<String, Object>> getOrders(@PathVariable("userId")  String userId);
+    ResponseEntity<Map<String, Object>> getOrders(@PathVariable("userId") String userId);
 
 }
