@@ -34,6 +34,33 @@ public class Member extends Time implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String address;
+
+    @Column(nullable = false)
+    private String addressDetail;
+
+    @Column(nullable = false)
+    private String zipCode;
+
+    @Column(nullable = false)
+    private String nickName;
+
+    @Column(nullable = false)
+    private String mobile;
+
+    @Column(nullable = false)
+    private String age;
+
+    @Column(nullable = false)
+    private String gender;
+
+    @Column(nullable = false)
+    private String useYn;
+
+    @Column(nullable = false)
+    private String privacyYn;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(value = EnumType.STRING)
     private List<Role> roles = new ArrayList<>();
