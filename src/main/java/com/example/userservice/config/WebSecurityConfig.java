@@ -34,9 +34,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/**"
                 ).permitAll()
-                .antMatchers(
-                        "/v1/admin/**"
-                ).hasRole("ROLE_ADMIN")
                 .and()
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and()
