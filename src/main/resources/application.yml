@@ -40,4 +40,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: info, refresh, health, beans, busrefresh
+        include: info, refresh, health, busrefresh
